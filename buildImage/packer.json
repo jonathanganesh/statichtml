@@ -1,0 +1,27 @@
+{
+  "builders": [
+	  {
+		  "type": "amazon-ebs",
+		  "profile": "buildImage",
+		  "region": "us-east-1",
+		  "instance_type": "t2.large",
+		  "ssh_username": "ec2-user",
+		  "ami_name": "static{{timestamp}}",
+		  "source_ami_filter": {
+			  "filters": {
+				  "virtualization-type": "hvm",
+				  "name": "amzn-ami-hvm-2017.09.1.2018*-x86_64-gp2",
+				  "root-device-type": "ebs"
+			  },
+			  "owners": ["137112412989"],
+			  "most_recent": true
+		  }
+	  }
+  ],
+  "provisioners": [
+	  {
+		  "type": "ansible",
+		  "playbook_file": "./playbook.yml"
+          }
+  ]
+}
